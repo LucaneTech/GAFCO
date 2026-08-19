@@ -4,6 +4,7 @@ export const company = {
   slogan: "Votre besoin, notre savoir-faire",
   phoneDisplay: "+242 06 915 63 23",
   phoneHref: "tel:+242069156323",
+  whatsappNumber: "242069156323",
   email: "pas-encore@gmail.com",
   location: "Congo-Brazzaville",
   contactName: "Mr GAMBOU GOLET NGALAYENDO OPHDA",

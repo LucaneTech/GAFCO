@@ -14,31 +14,34 @@ export function ContactForm({ locale }: { locale: Locale }) {
   const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
     const formData = new FormData(form);
-    const payload = {
-      name: formData.get("name"), company: formData.get("company"), phone: formData.get("phone"),
-      email: formData.get("email"), service: formData.get("service"), message: formData.get("message"),
-      consent: formData.get("consent") === "on", website: formData.get("website"),
-    };
+    const name = String(formData.get("name") ?? "");
+    const companyName = String(formData.get("company") ?? "");
+    const phone = String(formData.get("phone") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const service = String(formData.get("service") ?? "");
+    const message = String(formData.get("message") ?? "");
+    const whatsappMessage = [
+      "Bonjour G.A.F.CO,",
+      "",
+      "Je souhaite vous contacter au sujet d'une demande.",
+      "",
+      `Nom : ${name}`,
+      companyName ? `Entreprise : ${companyName}` : "",
+      `Téléphone : ${phone}`,
+      `E-mail : ${email}`,
+      `Service : ${dict.services[service as keyof typeof dict.services]?.title ?? service}`,
+      "",
+      `Message : ${message}`,
+    ].filter(Boolean).join("\n");
     setErrors({});
-    setStatus({ kind: "loading", message: fr ? "Envoi en cours…" : "Sending…" });
-    try {
-      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-      const result = await response.json() as { ok?: boolean; message?: string; errors?: Record<string, string> };
-      if (!response.ok || !result.ok) {
-        setErrors(result.errors ?? {});
-        setStatus({ kind: "error", message: result.message ?? (fr ? "Envoi impossible." : "Unable to send.") });
-        return;
-      }
-      form.reset();
-      setStatus({ kind: "success", message: result.message ?? (fr ? "Demande transmise." : "Request sent.") });
-    } catch {
-      setStatus({ kind: "error", message: fr ? "Connexion impossible. Appelez-nous ou utilisez le lien e-mail." : "Connection failed. Please call us or use the email link." });
-    }
+    setStatus({ kind: "loading", message: fr ? "Ouverture de WhatsApp…" : "Opening WhatsApp…" });
+    const whatsappUrl = `https://wa.me/${company.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.location.assign(whatsappUrl);
   }
 
   const error = (field: string) => errors[field] ? <span className="field-error" id={`${field}-error`}>{errors[field]}</span> : null;
