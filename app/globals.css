@@ -89,6 +89,12 @@ p { color: var(--muted); }
 .section-heading h2 { margin-bottom: 14px; font-size: clamp(1.8rem, 3vw, 2.55rem); }
 .orange-rule { display: block; width: 48px; height: 4px; background: var(--orange); }
 .section-heading.centered .orange-rule { margin-inline: auto; }
+.service-card-reveal { height: 100%; }
+.service-card-reveal > .service-card { height: 100%; }
+.service-card, .project-card, .values-grid article, .audience-grid article, .coming-card, .references-card, .contact-form, .location-card { transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease; }
+.service-card:hover, .project-card:hover, .values-grid article:hover, .audience-grid article:hover, .coming-card:hover, .references-card:hover, .contact-form:hover, .location-card:hover { transform: translateY(-5px); box-shadow: 0 16px 34px rgba(6,28,67,.09); }
+.button, .language-switcher, .header-phone { transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
+.button:hover, .language-switcher:hover { transform: translateY(-2px); }
 .split-section { display: grid; grid-template-columns: 1fr 1.08fr; gap: clamp(38px, 7vw, 88px); align-items: center; }
 .split-copy p { margin-bottom: 16px; }
 .split-copy .button { margin-top: 10px; }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { company, localizedHref, routePaths, type Locale } from "@/data/site";
 import { getDictionary } from "@/lib/i18n";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/ui/Reveal";
 import { MobileMenu } from "./MobileMenu";
 
 export function Header({ locale, active }: { locale: Locale; active: keyof typeof routePaths }) {
@@ -17,7 +18,7 @@ export function Header({ locale, active }: { locale: Locale; active: keyof typeo
 
   return (
     <header className="site-header">
-      <div className="container header-inner">
+      <Reveal className="container header-inner" direction="none">
         <Link className="logo" href={localizedHref(locale, "home")} aria-label={`${company.shortName} — ${dict.nav.home}`}>
           G.A.F.CO
         </Link>
@@ -52,7 +53,7 @@ export function Header({ locale, active }: { locale: Locale; active: keyof typeo
             localeHref={localizedHref(otherLocale, "home")}
           />
         </div>
-      </div>
+      </Reveal>
     </header>
   );
 }

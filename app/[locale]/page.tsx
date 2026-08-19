@@ -72,7 +72,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="section section-tint">
         <div className="container">
           <SectionHeading title={fr ? "Nos domaines d’intervention" : "Our service areas"} centered />
-          <div className="service-grid">{serviceKeys.map((service) => <ServiceCard key={service} locale={locale} service={service} />)}</div>
+          <div className="service-grid">{serviceKeys.map((service, index) => <ServiceCard key={service} locale={locale} service={service} index={index} />)}</div>
         </div>
       </section>
 
